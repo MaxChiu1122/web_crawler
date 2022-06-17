@@ -12,16 +12,17 @@ rate_new['掛牌日期'] = pd.to_datetime(rate_new['掛牌日期'], format='%Y/%
 #print(rate)
 print(rate_new)
 plt.plot(rate_new.iloc[:,0],rate_new.iloc[:,1])
+rate_reverse = rate_new.iloc[:,1][::-1]
 x = np.array(range(days))
-y = np.array(rate_new.iloc[:days,1])
+y = np.array(rate_reverse)
 m,k = np.polyfit(x,y,1)
 y2 = m*x+k
-plt.plot(rate_new.iloc[:,0],y2)
+plt.plot(rate_new.iloc[:,0],y2[::-1])
 plt.title("jpy to twd") 
 plt.ylabel("rate") 
 plt.xlabel("time")
-print('最小平方法:','y = ',-m,'x +',k)
+print('最小平方法:','y = ',m,'x +',k)
 t = int(input('請輸入要預估幾天後的匯率：'))
-r = -m*(t+days-1) + k
+r = m*(t+days-1) + k
 print(t,'天後的匯率為：',r)
 plt.show()
