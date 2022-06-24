@@ -16,13 +16,19 @@ rate_reverse = rate_new.iloc[:,1][::-1]
 x = np.array(range(days))
 y = np.array(rate_reverse)
 m,k = np.polyfit(x,y,1)
-y2 = m*x+k
+y2=0
+deg = int(input('請輸入最小平方法最高次數：（建議不要10次以上）'))
+z = np.polyfit(x,y,deg)
+#print(z)
+for power in range(deg+1):
+  y2 = y2 + z[deg-power]*x**(power)
 plt.plot(rate_new.iloc[:,0],y2[::-1])
 plt.title("jpy to twd") 
 plt.ylabel("rate") 
 plt.xlabel("time")
-print('最小平方法:','y = ',m,'x +',k)
 t = int(input('請輸入要預估幾天後的匯率：'))
-r = m*(t+days-1) + k
-print(t,'天後的匯率為：',r)
+f = 0
+for power in range(deg+1):
+  f = f + z[deg-power]*(t+days-1)**(power)
+print(t,'天後的匯率為：',f)
 plt.show()
