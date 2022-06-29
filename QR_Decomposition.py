@@ -26,6 +26,9 @@ for j in range(1,n):
   #print(m2)
   Q[:,j] = (1/m2)*Q[:,j]
   m2 = 0
+while m<n:
+    Q = np.delete(Q,n-1,1)
+    n = n-1
 Q_t = np.transpose(Q)
 R = Q_t.dot(A)
 print('A : \n',A)
